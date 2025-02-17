@@ -27,15 +27,16 @@ const timeline = [
 
 export default function About() {
   return (
-    <section id="about" className="py-20 bg-muted/30">
+    <section id="about" className="min-h-screen py-20 bg-muted/30 flex items-center">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* About Content */}
           <motion.div
             variants={fadeIn}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
+            className="max-w-xl"
           >
             <h2 className="text-3xl font-bold mb-6">About Me</h2>
             <div className="prose prose-lg">
@@ -60,26 +61,58 @@ export default function About() {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="relative"
+            className="relative pl-8"
           >
-            <div className="absolute left-8 top-0 bottom-0 w-px bg-primary/20" />
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-primary/20" />
 
             {timeline.map((item, index) => (
               <motion.div
                 key={item.year}
-                variants={fadeIn}
-                className="relative mb-8 last:mb-0 pl-16"
+                variants={{
+                  initial: { opacity: 0, x: -50 },
+                  animate: { 
+                    opacity: 1, 
+                    x: 0,
+                    transition: { 
+                      delay: index * 0.2,
+                      duration: 0.5 
+                    }
+                  }
+                }}
+                className="relative mb-12 last:mb-0"
               >
-                <div className="absolute left-7 w-2 h-2 rounded-full bg-primary transform -translate-x-1/2 mt-2" />
-                <Card className="relative">
+                <div 
+                  className="absolute left-0 w-3 h-3 bg-primary rounded-full transform -translate-x-[7px] mt-2"
+                  style={{
+                    boxShadow: '0 0 0 4px rgba(var(--primary), 0.1)'
+                  }}
+                />
+                <Card className="ml-8">
                   <CardContent className="pt-6">
-                    <span className="text-primary font-bold text-xl mb-2 block">
+                    <motion.span 
+                      className="text-primary font-bold text-xl mb-2 block"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.2 + 0.2 }}
+                    >
                       {item.year}
-                    </span>
-                    <h3 className="font-semibold mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">
+                    </motion.span>
+                    <motion.h3 
+                      className="font-semibold mb-2"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.2 + 0.3 }}
+                    >
+                      {item.title}
+                    </motion.h3>
+                    <motion.p 
+                      className="text-sm text-muted-foreground"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.2 + 0.4 }}
+                    >
                       {item.description}
-                    </p>
+                    </motion.p>
                   </CardContent>
                 </Card>
               </motion.div>

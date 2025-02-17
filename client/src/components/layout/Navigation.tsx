@@ -8,14 +8,14 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
 
-  const scrollToSection = (href: string) => {
+  const handleNavClick = (href: string) => {
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
+      setIsOpen(false);
     }
-    setIsOpen(false);
   };
 
   return (
@@ -29,15 +29,23 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {NAV_LINKS.map((link) => (
-              <span
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className={`nav-link ${
-                  location === link.href ? "text-primary after:w-full" : "text-muted-foreground"
-                }`}
-              >
-                {link.label}
-              </span>
+              link.href.startsWith('#') ? (
+                <span
+                  key={link.href}
+                  onClick={() => handleNavClick(link.href)}
+                  className={`nav-link ${
+                    location === link.href ? "text-primary after:w-full" : "text-muted-foreground"
+                  }`}
+                >
+                  {link.label}
+                </span>
+              ) : (
+                <Link key={link.href} href={link.href}>
+                  <span className="nav-link text-muted-foreground">
+                    {link.label}
+                  </span>
+                </Link>
+              )
             ))}
           </div>
 
@@ -56,14 +64,22 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden py-4">
             {NAV_LINKS.map((link) => (
-              <span
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className={`block py-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer
-                  ${location === link.href ? "text-primary" : "text-muted-foreground"}`}
-              >
-                {link.label}
-              </span>
+              link.href.startsWith('#') ? (
+                <span
+                  key={link.href}
+                  onClick={() => handleNavClick(link.href)}
+                  className={`block py-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer
+                    ${location === link.href ? "text-primary" : "text-muted-foreground"}`}
+                >
+                  {link.label}
+                </span>
+              ) : (
+                <Link key={link.href} href={link.href}>
+                  <span className="block py-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer">
+                    {link.label}
+                  </span>
+                </Link>
+              )
             ))}
           </div>
         )}

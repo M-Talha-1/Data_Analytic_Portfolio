@@ -7,7 +7,7 @@ export const SOCIAL_LINKS = [
     label: "LinkedIn Profile",
   },
   {
-    icon: SiGithub, 
+    icon: SiGithub,
     href: "https://github.com",
     label: "GitHub Profile",
   },
@@ -22,6 +22,7 @@ export const NAV_LINKS = [
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
   { href: "#portfolio", label: "Portfolio" },
+  { href: "#testimonials", label: "Testimonials" },
   { href: "#contact", label: "Contact" },
   { href: "/blog", label: "Blog" }
 ];
