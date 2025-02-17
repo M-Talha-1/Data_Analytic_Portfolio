@@ -8,6 +8,16 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
 
+  const scrollToSection = (href: string) => {
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">
       <div className="container mx-auto px-4">
@@ -19,14 +29,15 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <span 
-                  className={`text-sm font-medium transition-colors hover:text-primary cursor-pointer
-                    ${location === link.href ? "text-primary" : "text-muted-foreground"}`}
-                >
-                  {link.label}
-                </span>
-              </Link>
+              <span
+                key={link.href}
+                onClick={() => scrollToSection(link.href)}
+                className={`nav-link ${
+                  location === link.href ? "text-primary after:w-full" : "text-muted-foreground"
+                }`}
+              >
+                {link.label}
+              </span>
             ))}
           </div>
 
@@ -45,15 +56,14 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden py-4">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <span
-                  className={`block py-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer
-                    ${location === link.href ? "text-primary" : "text-muted-foreground"}`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </span>
-              </Link>
+              <span
+                key={link.href}
+                onClick={() => scrollToSection(link.href)}
+                className={`block py-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer
+                  ${location === link.href ? "text-primary" : "text-muted-foreground"}`}
+              >
+                {link.label}
+              </span>
             ))}
           </div>
         )}
