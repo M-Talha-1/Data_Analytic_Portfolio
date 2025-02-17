@@ -31,7 +31,7 @@ export default function Testimonials() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
       );
     }, SLIDE_DURATION);
@@ -40,7 +40,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section id="testimonials" className="py-20 min-h-screen flex items-center bg-muted/30">
       <div className="container mx-auto px-4">
         <motion.div
           variants={fadeIn}
