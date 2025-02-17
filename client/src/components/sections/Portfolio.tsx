@@ -49,21 +49,36 @@ export default function Portfolio() {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {filteredItems.map((item) => (
-            <motion.div key={item.title} variants={scaleIn}>
-              <Card className="group cursor-pointer hover:shadow-lg transition-shadow">
+            <motion.div
+              key={item.title}
+              variants={scaleIn}
+              whileHover={{ y: -10 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="group cursor-pointer overflow-hidden">
                 <CardContent className="p-0">
                   <div className="relative aspect-video overflow-hidden">
-                    <img
+                    <motion.img
                       src={item.image}
                       alt={item.title}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                      className="object-cover w-full h-full"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
                     />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <div className="text-white text-center p-4">
-                        <h3 className="font-semibold mb-2">{item.title}</h3>
-                        <p className="text-sm">{item.description}</p>
+                    <motion.div
+                      className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="text-white text-center p-6 transform">
+                        <h3 className="font-semibold text-xl mb-2">{item.title}</h3>
+                        <p className="text-sm mb-4">{item.description}</p>
+                        <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+                          View Details
+                        </Button>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </CardContent>
               </Card>

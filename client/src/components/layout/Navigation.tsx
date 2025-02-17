@@ -12,20 +12,20 @@ export default function Navigation() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/">
-            <a className="text-xl font-bold text-primary">DataPro</a>
-          </Link>
+          <div className="text-xl font-bold text-primary">
+            <Link href="/">DataPro</Link>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href}>
-                <a
-                  className={`text-sm font-medium transition-colors hover:text-primary
+                <span 
+                  className={`text-sm font-medium transition-colors hover:text-primary cursor-pointer
                     ${location === link.href ? "text-primary" : "text-muted-foreground"}`}
                 >
                   {link.label}
-                </a>
+                </span>
               </Link>
             ))}
           </div>
@@ -46,13 +46,13 @@ export default function Navigation() {
           <div className="md:hidden py-4">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href}>
-                <a
-                  className={`block py-2 text-sm font-medium transition-colors hover:text-primary
+                <span
+                  className={`block py-2 text-sm font-medium transition-colors hover:text-primary cursor-pointer
                     ${location === link.href ? "text-primary" : "text-muted-foreground"}`}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
-                </a>
+                </span>
               </Link>
             ))}
           </div>
