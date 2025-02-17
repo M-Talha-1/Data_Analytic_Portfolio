@@ -20,7 +20,7 @@ import { fadeIn } from "@/lib/animations";
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  
+
   const form = useForm<ContactForm>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -33,14 +33,23 @@ export default function Contact() {
   async function onSubmit(data: ContactForm) {
     setIsSubmitting(true);
     try {
-      // Google Sheets API submission would go here
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      
+      const response = await fetch('https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon.",
       });
-      
+
       form.reset();
     } catch (error) {
       toast({

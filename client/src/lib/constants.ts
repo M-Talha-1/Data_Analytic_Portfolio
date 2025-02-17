@@ -94,40 +94,48 @@ export const BLOG_POSTS = [
     title: "The Future of Data Analytics",
     excerpt: "Exploring emerging trends in data science and analytics...",
     date: "2024-03-15",
+    url: "https://medium.com/data-analytics-future",
   },
   {
     title: "Mastering Data Visualization",
     excerpt: "Best practices for creating impactful data visualizations...",
     date: "2024-03-10",
+    url: "https://medium.com/data-visualization-mastery",
   },
   {
     title: "Machine Learning Fundamentals",
     excerpt: "A beginner's guide to predictive analytics...",
     date: "2024-03-05",
+    url: "https://medium.com/ml-fundamentals",
   },
   {
     title: "Data-Driven Decision Making",
     excerpt: "How to leverage data for better business decisions...",
     date: "2024-02-28",
+    url: "https://medium.com/data-driven-decisions",
   },
   {
     title: "Understanding Big Data",
     excerpt: "A comprehensive guide to big data analytics...",
     date: "2024-02-20",
+    url: "https://medium.com/big-data-guide",
   },
   {
     title: "AI in Business Analytics",
     excerpt: "Implementing AI for better business insights...",
     date: "2024-02-15",
+    url: "https://medium.com/ai-in-analytics",
   },
   {
     title: "Statistical Analysis Tools",
     excerpt: "A comparison of popular statistical analysis tools...",
     date: "2024-02-10",
+    url: "https://medium.com/stats-tools",
   },
   {
     title: "Data Privacy in Analytics",
     excerpt: "Best practices for maintaining data privacy...",
     date: "2024-02-05",
+    url: "https://medium.com/data-privacy",
   }
 ];
