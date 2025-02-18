@@ -19,6 +19,7 @@ import { fadeIn } from "@/lib/animations";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState(""); // ✅ Message state for success/error
   const { toast } = useToast();
 
   const form = useForm<ContactForm>({
@@ -32,31 +33,31 @@ export default function Contact() {
 
   async function onSubmit(data: ContactForm) {
     setIsSubmitting(true);
+    setMessage("");
+
     try {
-      const response = await fetch('https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("message", data.message);
+
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbyo5FVFfcgrQgo0pfvahaIhHEWDCw-GJdn6bpH00hYkunYQaN5LW5qhOcLJ8Se18Mdn/exec";
+
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        throw new Error("Failed to submit form");
       }
 
-      toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
-      });
-
+      setMessage("Message sent successfully!"); // ✅ Display success message
+      setTimeout(() => setMessage(""), 5000);
       form.reset();
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-      });
+      setMessage("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -135,6 +136,12 @@ export default function Contact() {
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
+
+              {message && (
+                <p className={`text-center mt-4 ${message.includes("success") ? "text-green-500" : "text-red-500"}`}>
+                  {message}
+                </p>
+              )}
             </form>
           </Form>
         </motion.div>
